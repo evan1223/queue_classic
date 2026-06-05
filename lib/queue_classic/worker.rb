@@ -94,7 +94,8 @@ module QC
             return [queue, job]
           end
         end
-        @conn_adapter.wait(@wait_interval, *@queues.map(&:name))
+        # @conn_adapter.wait(@wait_interval, *@queues.map(&:name))
+        sleep(@wait_interval)
       end
     end
 
