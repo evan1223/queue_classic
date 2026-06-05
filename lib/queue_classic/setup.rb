@@ -17,7 +17,7 @@ module QC
     def self.create(c = QC.default_conn_adapter.connection)
       conn = QC::ConnAdapter.new(connection: c)
       conn.execute(File.read(CreateTable))
-      conn.execute(File.read(SqlFunctions))
+#      conn.execute(File.read(SqlFunctions))
       conn.disconnect if c.nil? # Don't close a conn we didn't create.
     end
 
