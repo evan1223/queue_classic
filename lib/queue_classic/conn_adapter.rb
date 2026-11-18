@@ -38,6 +38,8 @@ module QC
     end
 
     def wait(time, *channels)
+      return Kernel.sleep(time) unless QC.listen_notify?
+
       @mutex.synchronize do
         listen_cmds = channels.map { |c| "LISTEN \"#{c}\"" }
         connection.exec(listen_cmds.join(';'))

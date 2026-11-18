@@ -14,6 +14,13 @@ module QC
     def wait_time
       @wait_time ||= (ENV['QC_LISTEN_TIME'] || 5).to_i
     end
+    
+    # Whether workers should use PostgreSQL LISTEN/NOTIFY while waiting for jobs.
+    def listen_notify?
+      return @listen_notify unless @listen_notify.nil?
+
+      @listen_notify = ENV.fetch('QC_LISTEN_NOTIFY', 'true') != 'false'
+    end
 
     # Why do you want to change the table name?
     # Just deal with the default OK?
@@ -78,6 +85,7 @@ module QC
       # TODO: we might want to think about storing these in a Hash.
       @app_name = nil
       @wait_time = nil
+      @listen_notify = nil
       @table_name = nil
       @queue = nil
       @default_queue = nil

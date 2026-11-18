@@ -31,6 +31,19 @@ class ConfigTest < QCTest
     end
   end
 
+  def test_listen_notify_default
+    assert QC.listen_notify?
+  end
+
+  def test_configure_listen_notify_with_env_var
+    with_env 'QC_LISTEN_NOTIFY' => 'false' do
+      QC.reset_config
+      refute QC.listen_notify?
+    end
+  end
+
+
+
   def test_table_name_default
     assert_equal 'queue_classic_jobs', QC.table_name
   end
